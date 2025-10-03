@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter4/screens/MainScreen.dart';
+
+import 'screens/column_screen.dart';
+import 'screens/list_view_screen.dart';
+import 'screens/list_view_separated_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,11 +14,69 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Менеджер задач',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        primarySwatch: Colors.blue,
+        useMaterial3: true,
       ),
-      home: MainScreen(),
+      home: const MainScreen(),
+    );
+  }
+}
+
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  int _currentIndex = 0;
+
+  final List<Widget> _screens = [
+    const ColumnScreen(),
+    const ListViewScreen(),
+    const ListViewSeparatedScreen(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Менеджер задач'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
+      body: _screens[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.green,
+        backgroundColor: Colors.white,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.text_fields),
+            activeIcon: Icon(Icons.text_fields, color: Colors.green),
+            label: 'Простой список',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.smart_button),
+            activeIcon: Icon(Icons.smart_button, color: Colors.green),
+            label: 'С приоритетами',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.grid_view),
+            activeIcon: Icon(Icons.grid_view, color: Colors.green),
+            label: 'Детальный вид',
+          ),
+        ],
+      ),
     );
   }
 }

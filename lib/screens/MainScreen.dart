@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'ColumnScreen.dart';
-import 'ListViewScreen.dart';
-import 'ListViewSeparatedScreen.dart';
+import 'column_screen.dart';
+import 'list_view_screen.dart';
+import 'list_view_separated_screen.dart';
 
 class MainScreen extends StatefulWidget{
   const MainScreen({super.key});
